@@ -1,0 +1,19 @@
+{
+  "name": "celebus-stress-tools",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "verify": "bash scripts/verify.sh",
+    "verify:contracts": "bash scripts/verify.sh contracts",
+    "verify:demo": "bash scripts/verify.sh demo",
+    "stress:viem": "node scripts/stress-viem.mjs",
+    "stress:submit": "node scripts/submit-stress-viem.mjs",
+    "stress:burst": "node scripts/burst-stress.mjs",
+    "stress:full": "bash scripts/full-stress-test.sh",
+    "mint:parallel": "node scripts/mint-parallel.mjs"
+  },
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "viem": "^2.39.3"
+  }
+}

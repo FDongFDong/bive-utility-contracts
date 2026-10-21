@@ -1,0 +1,64 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+optimizer = true
+optimizer_runs = 200
+via_ir = true
+evm_version = "prague"  # Same as MainVoting
+no_storage_caching = true  # Disable storage caching to prevent fork errors
+additional_compiler_profiles = [
+    { name = "ticket-exact", via_ir = true, evm_version = "prague", optimizer = true, optimizer_runs = 200 },
+]
+compilation_restrictions = [
+    { paths = "src/nft/BIVETicketNFT.sol", version = "=0.8.35", via_ir = true, evm_version = "prague", optimizer_runs = 200 },
+    { paths = "src/nft/BIVENFT.sol", version = "=0.8.30", via_ir = true, evm_version = "prague", optimizer_runs = 200 },
+    { paths = "src/vote/**", version = "=0.8.30", via_ir = true, evm_version = "prague", optimizer_runs = 200 },
+    { paths = "src/token/**", version = "=0.8.30", via_ir = true, evm_version = "prague", optimizer_runs = 200 },
+    { paths = "src/common/**", version = "=0.8.30", via_ir = true, evm_version = "prague", optimizer_runs = 200 },
+]
+
+# BIVETicketNFT was introduced with Solidity 0.8.35. Keep its artifacts
+# separate so rebuilding the already deployed contracts does not change their
+# compiler metadata or bytecode.
+[profile.ticket]
+out = "out-ticket"
+cache_path = "cache-ticket"
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+
+[[profile.default.fs_permissions]]
+access = "read"
+path = "."
+
+[[profile.default.fs_permissions]]
+access = "read"
+path = "broadcast/stress-artifacts"
+
+[[profile.default.fs_permissions]]
+access = "write"
+path = "broadcast"
+
+[[profile.default.fs_permissions]]
+access = "write"
+path = "broadcast/stress-artifacts"
+
+[[profile.default.fs_permissions]]
+access = "write"
+path = "stress-artifacts"
+
+[[profile.default.fs_permissions]]
+access = "write"
+path = "stress-artifacts"
+
+[[profile.default.fs_permissions]]
+access = "read"
+path = "broadcast"
+
+[[profile.default.fs_permissions]]
+access = "read"
+path = "broadcast/stress-artifacts"
+
+[[profile.default.fs_permissions]]
+access = "read"
+path = "stress-artifacts"

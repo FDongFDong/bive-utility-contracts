@@ -1,0 +1,76 @@
+# Compiler files
+cache/
+out/
+cache-ticket/
+out-ticket/
+
+# Ignores development broadcast logs
+/broadcast/**/31337/
+/broadcast/**/dry-run/
+/broadcast/**/run-*.json
+/broadcast/**/run-latest.json
+
+# Foundry test broadcast logs
+/broadcast/**/Test*.s.sol/
+/broadcast/**/Submit*.s.sol/
+/broadcast/**/Stress*.s.sol/
+
+# Docs (Foundry 빌드 문서 제외, 스크린샷은 포함)
+docs/*
+!docs/images/
+
+# Dotenv file
+.env
+
+# Stress tooling / log artifacts
+stress-artifacts/
+*.log
+
+# Flatten files (verification용 1회성)
+*_flat*.sol
+
+# Standard JSON input (verification용 1회성)
+standard-input*.json
+*-standard-json-input.json
+!demo-next/contract-artifacts/**/standard-json-input.json
+
+# Build & Deployment artifacts (1회성)
+*-abi.json
+*-constructor-args.txt
+constructor-args.json
+constructor-args.txt
+abi-encoder.js
+
+# IDE 설정
+.vscode/
+
+node_modules
+
+# macOS system files
+.DS_Store
+**/.DS_Store
+
+# MCP tool caches
+.playwright-mcp/
+.serena/
+
+# demo-next build artifacts
+demo-next/.next/
+demo-next/node_modules/
+
+# Browser debug/validation screenshots
+playwright-*.png
+debug-*.png
+demo-next/debug-*.png
+demo-next/diag-*.png
+demo-next/main-debug-cmd.png
+demo-next/wallet-debug-*.png
+
+# Build output
+bin/
+
+# Remotion 영상 프로젝트 (별도 워크스페이스, 저장소에 포함하지 않음)
+video/
+
+# 코드 리뷰 스킬 로컬 산출물
+code-review-all-output/

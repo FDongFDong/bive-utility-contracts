@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Foundry project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialize contract dependencies
+        run: git submodule update --init --recursive lib/forge-std lib/openzeppelin-contracts
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1
+        with:
+          version: v1.7.1
+
+      - name: Show Forge version
+        run: |
+          forge --version
+
+      - name: Run Forge fmt for ticket contracts
+        run: |
+          forge fmt --check src/nft/BIVETicketNFT.sol script/DeployTicketNFT.s.sol test/BIVETicketNFT.t.sol
+        id: fmt
+
+      - name: Run Forge build
+        run: |
+          forge build --sizes
+        id: build
+
+      - name: Run Forge tests
+        run: |
+          forge test -vvv
+        id: test
+
+      - name: Build BIVETicketNFT with production compiler
+        run: |
+          FOUNDRY_PROFILE=ticket forge build --sizes src/nft/BIVETicketNFT.sol
+        id: ticket-build
+
+      - name: Test BIVETicketNFT with production compiler
+        run: |
+          FOUNDRY_PROFILE=ticket forge test --match-path test/BIVETicketNFT.t.sol -vvv
+        id: ticket-test
